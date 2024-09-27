@@ -1,0 +1,5 @@
+# Starter Terrafile
+# More info: https://terraspace.cloud/docs/terrafile/
+
+mod "vpc", source: "terraform-aws-modules/terraform-aws-vpc"
+mod "eks", source: "terraform-aws-modules/terraform-aws-eks"

@@ -1,0 +1,14 @@
+.gradle
+.idea
+*.iml
+
+.structurizr
+
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+/infra/terraspace/.terraspace-cache/
+/infra/terraspace/vendor/
+
+
+/services/**/build/

@@ -1,0 +1,11 @@
+---
+eks:
+  source: terraform-aws-modules/terraform-aws-eks
+  type: git
+  url: https://github.com/terraform-aws-modules/terraform-aws-eks
+  sha: 7f219a678ee5712d4d7bed8881749e497130d549
+vpc:
+  source: terraform-aws-modules/terraform-aws-vpc
+  type: git
+  url: https://github.com/terraform-aws-modules/terraform-aws-vpc
+  sha: e226cc15a7b8f62fd0e108792fea66fa85bcb4b9

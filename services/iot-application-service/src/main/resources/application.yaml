@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: iot-application-service
+  data:
+    mongodb:
+      port: 27017
+      database: application
+      authentication-database: admin
+
+security:
+  authentication:
+    oidcIdentityHeader: "x-amzn-oidc-identity"

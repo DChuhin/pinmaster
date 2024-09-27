@@ -1,0 +1,858 @@
+{
+  "configuration" : {
+    "scope" : "SoftwareSystem"
+  },
+  "description" : "Description",
+  "documentation" : {
+    "decisions" : [ {
+      "content" : "# 1. Use Kotlin and Spring Boot as backend framework\n\nDate: 2024-09-20\n\n## Status\n\nAccepted\n\n## Context\n\nWe need to decide on backend implementation stack which will meet our quality goals: extensibility, maintainability,\nperformance, ease of adoption.\n\n### Quality Attributes\n\n- **Ease of adoption**: How easy is to adopt stack. Do we have required knowledge and people?\n- **Maintainability**: How easy it will be to maintain and extend system with new functionality.\n- **Cost of construction**: How long will it take to build solution? How much components needs to be constructed from\n  scratch and how much we can get out-of-the box?\n\n### Considered Options\n\n#### Golang\n\n| Characteristic           | Rating (★) | Notes                                                                                                                                                    |\n|--------------------------|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|\n| **Ease of adoption**     | ★★★★☆      | Go is relatively easy language with low learning curve.                                                                                                  |\n| **Maintainability**      | ★★★☆☆      | Go has pros nad cons for maintainability. Functional style and concurrency implementation improves it, but OOP implementation, pointers produce overhead |\n| **Cost of construction** | ★★☆☆☆      | Go does not offer a lot of out-of-the box solutions. There is no comprehensive framework like Spring Boot.                                               |\n\n#### Java Spring Boot\n\n| Characteristic           | Rating (★) | Notes                                                                                                       |\n|--------------------------|------------|-------------------------------------------------------------------------------------------------------------|\n| **Ease of adoption**     | ★★★★☆      | Though Spring Boot learning curve is high, we already have required knowledge and experience.               |\n| **Maintainability**      | ★★★★☆      | Java and Spring Boot are targeted for enterprise scale project with modularity and maintainability in mind. |\n| **Cost of construction** | ★★★★☆      | Framework with the richest set of integrations and out-of-the-box functionality.                            |\n\n#### Kotlin Spring Boot\n\n| Characteristic           | Rating (★) | Notes                                                                            |\n|--------------------------|------------|----------------------------------------------------------------------------------|\n| **Ease of adoption**     | ★★★☆☆      | Extra knowledge in transition from java is required.                             |\n| **Maintainability**      | ★★★★★      | Kotlin features make code more concise and readable.                             |\n| **Cost of construction** | ★★★★☆      | Framework with the richest set of integrations and out-of-the-box functionality. |\n\n#### NodeJs Express\n\n| Characteristic           | Rating (★) | Notes                                                               |\n|--------------------------|------------|---------------------------------------------------------------------|\n| **Ease of adoption**     | ★★★☆☆      | Relatively low learning curve, but some learning is still required. |\n| **Maintainability**      | ★★★★☆      | Typescript enables more maintainable code.                          |\n| **Cost of construction** | ★★★★☆      | Great community support can speed up development.                   |\n\n## Decision\n\nKotlin with Spring Boot will be used to implement backend.\n\n## Consequences\n\n- **Ease of adoption**: We already have knowledge and experience in Spring Boot. Though we will need to lean Kotlin.\n- **Maintainability**: Concise and readable enforced by standards.\n- **Cost of construction**: Rich set of Spring Boot integrations will speed up development and reduce construction\n  costs.\n",
+      "date" : "2024-09-20T00:00:00Z",
+      "format" : "Markdown",
+      "id" : "1",
+      "status" : "Accepted",
+      "title" : "Use Kotlin and Spring Boot as backend framework"
+    }, {
+      "content" : "# 2. Use AWS as Cloud provider\n\nDate: 2024-09-20\n\n## Status\n\nAccepted\n\n## Context\n\nWe need to define deployment environment for backend.\n\n### Quality Attributes\n\n- **Ease of adoption**: How easy is to create initial setup to start development?\n- **Maintainability**: How easy it will be to maintain and onboard new services.\n- **Security**: Ability to implement fine-grained access management.\n\n### Considered Options\n\n#### AWS\n\n| Characteristic       | Rating (★) | Notes                                                                     |\n|----------------------|------------|---------------------------------------------------------------------------|\n| **Ease of adoption** | ★★★☆☆      | AWS has higher learning curve comparing to other clouds.                  |\n| **Maintainability**  | ★★★☆☆      | AWS usually has higher boilerplate to setup new services, infrastructure. |\n| **Security**         | ★★★★★      | AWS has very fine-grained and flexible IAM.                               |\n\n#### GCP\n\n| Characteristic       | Rating (★) | Notes                                                     |\n|----------------------|------------|-----------------------------------------------------------|\n| **Ease of adoption** | ★★★★★      | GCP has low learning curve to start development.          |\n| **Maintainability**  | ★★★★☆      | GCP resources are more straightforward and usable.        |\n| **Security**         | ★★★★☆      | GCP has fine-grained IAM though not such flexible as AWS. |\n\n#### Azure\n\n| Characteristic       | Rating (★) | Notes                                      |\n|----------------------|------------|--------------------------------------------|\n| **Ease of adoption** | ★★★☆☆      | Requires additional learning.              |\n| **Maintainability**  | ★★★★☆      | Well-structured resource hierarchy system. |\n| **Security**         | ★★★★☆      | Fine-grained access control system.        |\n\n## Decision\n\nWe will use AWS as cloud provider to host backend infrastructure.\n\n## Consequences\n\n- **Ease of adoption**: AWS has higher entry level and higher effort required to setup account\n- **Maintainability**: It will require some effort to work with AWS services during integrations.\n- **Security**: Great fine-grained access controlled to infrastructure can be enforced\n",
+      "date" : "2024-09-20T00:00:00Z",
+      "format" : "Markdown",
+      "id" : "2",
+      "status" : "Accepted",
+      "title" : "Use AWS as Cloud provider"
+    }, {
+      "content" : "# 3. Use Terraspace for infrastructure management\n\nDate: 2024-09-20\n\n## Status\n\nAccepted\n\n## Context\n\nWe need standard approach to provision and manage infrastructure in cloud.\n\n### Quality Attributes\n\n- **Extensibility**: How easy is to add new infrastructure and meet newly appearing requirements?\n- **Maintainability**: How easy is to manage infrastructure?\n\n### Considered options\n\n#### Terraform\n\n| Characteristic      | Rating (★) | Notes                                      |\n|---------------------|------------|--------------------------------------------|\n| **Extensibility**   | ★★★★★      | Flexibility of custom terraform structure. |\n| **Maintainability** | ★★★★☆      | Depends on chosen management approach.     |\n\n#### Terraspace\n\n| Characteristic      | Rating (★) | Notes                                              |\n|---------------------|------------|----------------------------------------------------|\n| **Extensibility**   | ★★★★☆      | Requires using required structure.                 |\n| **Maintainability** | ★★★★★      | Out-of-the box env diff and dependency management. |\n\n## Decision\n\nTerraspace will be used. Idiomatic project structure of terraspace will be used.\n\n## Consequences\n\n- **Extensibility**:\n    - Modularity is enforced\n- **Maintainability**:\n    - IaC is enforced\n    - Environment diff management out-of-the box\n    - Terraspace adds limitation to project structure",
+      "date" : "2024-09-20T00:00:00Z",
+      "format" : "Markdown",
+      "id" : "3",
+      "status" : "Accepted",
+      "title" : "Use Terraspace for infrastructure management"
+    }, {
+      "content" : "# 4. Use Hexagonal Architecture Style\n\nDate: 2024-09-20\n\n## Status\n\nAccepted\n\n## Context\n\nWe need to define common architecture style for services.\n\n### Quality Attributes\n\n- **Ease of adoption**: How easy is to learn and start using approach?\n- **Extensibility**: How easy is to add new features?\n- **Maintainability**: How easy is to manage and enforce design constraints?\n\n### Considered Options\n\n#### Clean Architecture\n\n| Characteristic       | Rating (★) | Notes                                                                              |\n|----------------------|------------|------------------------------------------------------------------------------------|\n| **Ease of adoption** | ★★★★☆      | Well-known easy to adopt approach.                                                 |\n| **Extensibility**    | ★★★★☆      | Extensible by avoiding coupling and splitting system into components based on DDD. |\n| **Maintainability**  | ★★★★☆      | Code can be split into package with predefined cross-package dependency rules.     |\n\n#### Hexagonal Architecture\n\n| Characteristic       | Rating (★) | Notes                                                                                         |\n|----------------------|------------|-----------------------------------------------------------------------------------------------|\n| **Ease of adoption** | ★★★☆☆      | More formal rules to follow will require more learning                                        |\n| **Extensibility**    | ★★★★☆      | Extensible by avoiding coupling and splitting system into components (hexagons) based on DDD. |\n| **Maintainability**  | ★★★★★      | More formal rules for packages make it more easily controllable with architecture tests.      |\n\n## Decision\n\nHeaxagonal Architecture will be used. Each module will have own hexagon. Modules are created based on DDD.\n\n## Consequences\n\n- **Ease of adoption**:\n    - Some effort on learning is required.\n- **Extensibility**:\n    - Modularity based on DDD is enforced.\n    - Some boilerplate and overhead introduced by hexagonal architecture\n- **Maintainability**:\n    - Constraints are enforced with architecture tests\n    - All services follow unified architecture standard\n",
+      "date" : "2024-09-20T00:00:00Z",
+      "format" : "Markdown",
+      "id" : "4",
+      "status" : "Accepted",
+      "title" : "Use Hexagonal Architecture Style"
+    }, {
+      "content" : "# 5. Use React-native for mobile development\n\nDate: 2024-09-20\n\n## Status\n\nAccepted\n\n## Context\n\nAs we are going to have mobile application, development platform must be defined\n\n### Quality Attributes\n\n- **Ease of adoption**: How easy is to learn and start using technology?\n- **Extensibility**: How easy is to add new features?\n- **Maintainability**: How easy is to maintain solution?\n- **Cost of construction**: How time-consuming is to build solution?\n\n### Considered options\n\n#### Native mobile development\n\n| Characteristic           | Rating (★) | Notes                                                                        |\n|--------------------------|------------|------------------------------------------------------------------------------|\n| **Ease of adoption**     | ★★☆☆☆      | Requires learning of mobile SDKs from scratch.                               |\n| **Extensibility**        | ★★★★★      | Full access to mobile OS APIs. Flexibility of adjustments for each platform. |\n| **Maintainability**      | ★★★☆☆      | Requires to maintain 2 projects.                                             |\n| **Cost of construction** | ★★☆☆☆      | Higher cost of construction due to double work .                             |\n\n#### Flutter\n\n| Characteristic           | Rating (★) | Notes                                  |\n|--------------------------|------------|----------------------------------------|\n| **Ease of adoption**     | ★★★☆☆      | Requires learning of Flutter.          |\n| **Extensibility**        | ★★★☆☆      | Limited access to native capabilities. |\n| **Maintainability**      | ★★★★☆      | Single implementation.                 |\n| **Cost of construction** | ★★★★☆      | Single implementation.                 |\n\n#### React Native\n\n| Characteristic           | Rating (★) | Notes                                  |\n|--------------------------|------------|----------------------------------------|\n| **Ease of adoption**     | ★★★★☆      | More friendly for React devs.          |\n| **Extensibility**        | ★★★☆☆      | Limited access to native capabilities. |\n| **Maintainability**      | ★★★★☆      | Single implementation.                 |\n| **Cost of construction** | ★★★★☆      | Single implementation.                 |\n\n\n## Decision\n\nReact native will be used to build single cross-platform application\n\n## Consequences\n\n- **Ease of adoption**: Lower Learning curve for React developers\n- **Extensibility**: Limitations of React-native\n- **Maintainability**: Single implementation on IOS, Android\n- **Cost of construction**: Single implementation on IOS, Android\n",
+      "date" : "2024-09-20T00:00:00Z",
+      "format" : "Markdown",
+      "id" : "5",
+      "status" : "Accepted",
+      "title" : "Use React-native for mobile development"
+    }, {
+      "content" : "# 6. Use React and RTK for frontend\n\nDate: 2024-09-20\n\n## Status\n\nAccepted\n\n## Context\n\nThe issue motivating this decision, and any context that influences or constrains the decision.\n\n### Quality Attributes\n\n- **Ease of adoption**: How easy is to learn and start using technology?\n- **Extensibility**: How easy is to add new features?\n- **Maintainability**: How easy is to maintain solution?\n\n### Considered options\n\n#### ReactJs\n\n| Characteristic       | Rating (★) | Notes                                                            |\n|----------------------|------------|------------------------------------------------------------------|\n| **Ease of adoption** | ★★★★★      | Easy-to-go lib with straightforward comprehensive documentation. |\n| **Extensibility**    | ★★★★☆      | Well-scalable component oriented approach.                       |\n| **Maintainability**  | ★★★★☆      | Best-practices of structuring project out-of-the bo.             |\n\n#### Angular\n\n| Characteristic       | Rating (★) | Notes                                              |\n|----------------------|------------|----------------------------------------------------|\n| **Ease of adoption** | ★★☆☆☆      | High learning curve.                               |\n| **Extensibility**    | ★★★☆☆      | More coupled to framework ecosystem.               |\n| **Maintainability**  | ★★★★☆      | Set of practices to structure, develop, test apps. |\n\n#### VueJs\n\n| Characteristic       | Rating (★) | Notes                                      |\n|----------------------|------------|--------------------------------------------|\n| **Ease of adoption** | ★★★☆☆      | Requires learning new framework.           |\n| **Extensibility**    | ★★★★☆      | Well-scalable component oriented approach. |\n| **Maintainability**  | ★★★☆☆      | Less community support.                    |\n\n## Decision\n\nReact with RTK and typescript will be used. Default project structure by official RTK vite template must be used.\n\n## Consequences\n\n- **Ease of adoption**: No extra knowledge required. Comprehensive concise react and RTK documentation is in place.\n- **Extensibility**: Well-scalable component oriented approach.\n- **Maintainability**: Great community support and set of best-practices\n",
+      "date" : "2024-09-20T00:00:00Z",
+      "format" : "Markdown",
+      "id" : "6",
+      "status" : "Accepted",
+      "title" : "Use React and RTK for frontend"
+    }, {
+      "content" : "# 7. Use Kubernetes as container orchestrator\n\nDate: 2024-09-20\n\n## Status\n\nAccepted\n\n## Context\n\nWe need to define deployment option for backend components.\n\n### Quality Attributes\n\n- **Ease of adoption**: How easy is to learn and start using technology?\n- **Extensibility**: How easy is to add new features?\n- **Maintainability**: How easy is to maintain solution?\n\n### Considered options\n\n#### Kubernetes\n\n| Characteristic       | Rating (★) | Notes                                                                                             |\n|----------------------|------------|---------------------------------------------------------------------------------------------------|\n| **Ease of adoption** | ★★★★☆      | Kubernetes requires learning, though has comprehensive documentation and great community support. |\n| **Extensibility**    | ★★★★☆      | Proven standard to deploy different types of infrastructure.                                      |\n| **Maintainability**  | ★★★★☆      | Declarative manifests and helm improve maintainability and enforce IaC.                           |\n\n#### AWS ECS\n\n| Characteristic       | Rating (★) | Notes                                                               |\n|----------------------|------------|---------------------------------------------------------------------|\n| **Ease of adoption** | ★★★☆☆      | Less community support and lower documentation quality.             |\n| **Extensibility**    | ★★☆☆☆      | Has more limitations.                                               |\n| **Maintainability**  | ★★★☆☆      | Requires to build custom CI/CD to create tasks and update services. |\n\n#### AWS Elastic Beanstalk\n\n| Characteristic       | Rating (★) | Notes                                                            |\n|----------------------|------------|------------------------------------------------------------------|\n| **Ease of adoption** | ★★★★☆      | Managed by AWS. Reduced operational overhead                     |\n| **Extensibility**    | ★★☆☆☆      | Focused on running simple applications.                          |\n| **Maintainability**  | ★★★★☆      | Less operational overheads leads to more simple CI/CD processes. |\n\n## Decision\n\nWe will use kubernetes for containerized applications.\n\n## Consequences\n\n- **Ease of adoption**: \n  - No extra knowledge required as we already have required kubernetes experience\n  - Load balancing out-of-the box\n  - Service discovery out-of-the box\n  - Externalized configuration out-of-the box\n  - Self-healing out-of-the-box\n- **Extensibility**: Kubernetes is well supported by community with rich set of out-of-the box helm chart and\n  installation guides\n- **Maintainability**: Kubernetes declarative manifests will be stored in git.\n",
+      "date" : "2024-09-20T00:00:00Z",
+      "format" : "Markdown",
+      "id" : "7",
+      "status" : "Accepted",
+      "title" : "Use Kubernetes as container orchestrator"
+    } ],
+    "sections" : [ {
+      "content" : "# PinMaster Design Document\n\n## Introduction and Goals\n\nThis document outlines the architecture for PinMaster software system.\n\n### Requirements Overview\n\nThe overall goal PinMaster is to speed up prototyping of IoT solutions, improve development experience. Requirements are\ndescribed in details in SRS document.\n\n### Quality Goals\n\nThe primary goals for PinMaster are:\n\n| Goal                     | Description                                                                                                                                          |\n|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|\n| **Usability**            | Ease of adoption for users. Development experience of users.                                                                                         |\n| **Extensibility**        | Ease of adding new functionality.                                                                                                                    |\n| **Maintainability**      | Ease of maintaining, managing dependencies and evolving the system.                                                                                  |\n| **Performance**          | Real-time state propagation. Horizontal scalability.                                                                                                 |\n| **Security**             | Compliance with industry security standards on network, infrastructure, application layers. Authentication, encryption, fine-grained access control. |\n| **Reliability**          | 99% availability SLA. 99.999% Durability SLA. Fault tolerance.                                                                                       |\n| **Ease of construction** | Due to time constraints, it must be relatively easy to construct the system                                                                          |\n\n### Stakeholders\n\n| Who                | Concern                                                                                                                                                                                                                                                                                                                                                             |\n|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| **Daniil Chukhin** | **Ease of construction**: It should not take a lot of effort to build system. <br/> **Extensibility**: It should be easy to add new function when we will get enough information<br/> **Maintainability**: Development experience for PinMaster development team<br/> **Security**: The system must be secure-by-design and comply with industry security standards |\n| **User**           | **Usability**: System onboarding must be straightforward. Learning curve must be minimal<br/> **Performance**: Device and state management must be real-time<br/> **Reliability**: System must be available and should not lose data                                                                                                                                |\n\n---\n\n## Constraints\n\n| Constraint                   | Description                                                                                                                                     |\n|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|\n| **Operational cost**         | System must generate minimal bills in cloud.                                                                                                    |\n| **Incremental Evolvability** | The system must be built incrementally, ensuring its complexity aligns with current needs, avoiding overengineering or unnecessary constraints. |\n| **Arduino Platform**         | System functionality must be compatible with Arduino platform devices.                                                                          |\n\n## Context\n\n![](embed:Scope)\n\n| Neighbor       | Description                                                               |\n|----------------|---------------------------------------------------------------------------|\n| **User**       | Registers devices in the system. Manages device state.                    |\n| **Device**     | Consumes device state and applies it.                                     |\n| **Mobile App** | Mobile application using PinMaster Mobile SDK and manage state of devices |\n\n## Solution Strategy\n\n### Introduction to strategy\n\n| Quality goal                          | Solution approach                                                                                                                                                                             |\n|---------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| **Usability**                         | 1. Straightforward device registration. <br/> 2. JSON as state format <br/> 3. Google SSO for authentication                                                                                  |\n| **Extensibility and Maintainability** | 1. Use microservice architecture style <br/> 2. Use Hexagonal architecture <br/> 3. Use DDD                                                                                                   |\n| **Performance**                       | 1. Use GRPC for data real-time streaming to devices. <br/> 2. Enforce horizontal scalability by using kubernetes load balancing and stateless service implementation                          |\n| **Security**                          | 1. mTLS for device authentication <br/> 2. SSO to authenticate users <br/> 3. Implement infrastructure access control <br/> 4. Enforce encryption at rest                                     |\n| **Reliability**                       | 1. HA by redundancy for services. <br/> 2. Standby replica for database <br/> 3. Ack mechanism for state delivering                                                                           |\n| **Ease of construction**              | 1. Using Spring Boot for application development <br/> 2. Using terraspace for infrastructure management <br/> 3. Using React for frontend <br/> 4. Using React-native for mobile development |\n\n## Building Block View\n\n![](embed:BuildingBlocksView)\n\n### Contained blocks\n\n| Block                    | Description                                              |\n|--------------------------|----------------------------------------------------------|\n| **Application Service**  | Service to manage user created applications.             |\n| **Application Storage**  | Stores created applications and application credentials. |\n| **Device Service**       | Service to manage user created devices.                  |\n| **Device Storage**       | Stores created devices.                                  |\n| **Certificates Storage** | Stores created devices certificates.                     |\n| **Device**               | Arduino device, using PinMaster Arduino SDK.             |\n\n### Interfaces\n\n| Interface        | Description                                          |\n|------------------|------------------------------------------------------|\n| **Web UI**       | REST API for web-backend communication               |\n| **Mobile SDK**   | Client for REST API for mobile-backend communication |\n| **Embedded SDK** | Client for GRPC API for device-backend communication |\n\n## Runtime View\n\n### Application Creation\n\n![](embed:CreateApp)\n\n### Device Registration\n\n![](embed:RegisterDevice)\n\n### Device State Management\n\n![](embed:UpdateDeviceState)\n\n## Deployment View\n\n![](embed:PinMasterDeployment)\n\n| Node / Artifact         | Description                                                                                                |\n|-------------------------|------------------------------------------------------------------------------------------------------------|\n| **Google SSO**          | Google SSO as authentication method on ALB enforces Google SSO authentication for for accessing resources. |\n| **ALB**                 | ALB with public IP to expose services to public.                                                           |\n| **ALB Controller**      | EKS Load Balancer Controller to use ingress for exposing services.                                         | |\n| **Route53**             | Use route53 domain to access application.                                                                  | |\n| **ACM**                 | Use ACM TLS certificate to enforce TLS usage on ALB.                                                       | |\n| **Application Service** | Service to manage applications.                                                                            | |\n| **Device Service**      | Service to manage devices.                                                                                 | |\n| **Certificates Bucket** | Bucket to store device certificates.                                                                       | |\n| **MongoDb**             | MongoDB instance to store data.                                                                            | |\n| **Prometheus**          | Prometheus instance for storing monitoring data.                                                           | |\n| **Grafana**             | Grafana to access prometheus data and provide monitoring insights.                                         | |\n| **CloudWatch**          | Use AWS CloudWatch for centralized logging.                                                                | |\n\n## Cross-cutting Concepts\n\n### Security\n\n#### Infrastructure Access\n\n- Infrastructure Access is managed by AWS IAM\n- AWS IAM roles are managed with terraspace and can be updated with code review only\n\n#### Public Access\n\n- Public access for infrastructure must be prevented.\n- Public access public interfaces are exposed only via authentication.\n\n#### Encryption\n\n- **Encryption at rest** must be enforced for all interfaces\n- **Encryption in transfer** must be enforced for all public interfaces\n\n### Backend Services Architecture style\n\n- **Domain Driven Design**: Business domain is decomposed based on DDD principles to control system coupling and\n  complexity.\n- **Hexagonal Architecture**: Hexagonal Architecture enforces that business layer will not have infrastructure\n  dependencies\n\n### Testing approach\n\n- **Backend:**\n    - Unit test coverage\n    - Testcontainers integration tests coverage is required\n    - Tests must be run on CI\n- **Mobile SDK**\n    - Unit tests coverage\n    - Create sample application with manual testing\n- **Arduino SDK**\n    - Setup sample device, test manually\n\n### Monitoring and Observability approach\n\n- **Centralized Logging:**\n    - Use AWS CloudWatch for centralized logging for all system components\n- **Metrics:**\n    - All server components must be monitored\n    - All client component must be monitor in their server usage\n- **Health Checks**:\n    - Self-hosted infrastructure must be monitored with health checks.\n    - Cloud watch and grafana alerts can be considered.\n- **Alerting:**\n    - There must be alerts on any component failure.\n\n### Documentation approach\n\n- **Document decisions and component**:\n    - All component and significant decision must be documented in corresponding way.\n- **Documentation as a code**:\n    - documentation is written in markdown format and stored in git. Baseline approach: readme file.\n\n## Architectural Decisions\n\nEvery engineering team member must be familiar with architecture decisions.\n\nADRs are listed on the [Decisions](/workspace/decisions) page\n\n## Risks and Technical Debt\n\n### Risks\n\n- **Arduino Platform Limitations**: Arduino platform has limited set of implemented libraries, protocols.\n- **Arduino Hardware Limitations**: Arduino based devices may be limited in resources that can cause issues for running\n  PinMaster Arduino SDK.\n- **Time limitation**: Lack of resources in provided time constraints\n\n## Glossary and Links\n\n### Glossary\n\n| Term                                        | Definition                                                                                                                                    |\n|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|\n| **IoT (Internet of Things)**                | A network of physical devices embedded with sensors, software, and other technologies to connect and exchange data.                           |\n| **SaaS (Software as a Service)**            | A software distribution model in which applications are hosted by a service provider and made available over the internet.                    |\n| **API (Application Programming Interface)** | A set of functions that allow applications to access data or interact with external software components, operating systems, or microservices. |\n| **SSO (Single Sign-On)**                    | A user authentication process that allows access to multiple applications with a single set of login credentials.                             |\n| **RBAC (Role-Based Access Control)**        | A method of restricting system access to authorized users based on their roles.                                                               |\n| **SLA (Service Level Agreement)**           | A contract that defines quality characteristic of a service.                                                                                  |\n| **TLS (Transport Layer Security)**          | A cryptographic protocol designed to provide communications security over a computer network.                                                 |\n| **mTLS (Mutual TLS)**                       | A version of TLS where both the client and server authenticate each other through certificates.                                               |\n| **Hexagonal Architecture**                  | A software design pattern that decouples the business logic from external factors like databases and UI via ports and adapters.               |\n| **DDD (Domain-Driven Design)**              | A design approach that focuses on modeling software based on the domain of the problem being solved.                                          |\n\n### Links\n\n- **[Google OpenId Connect](https://developers.google.com/identity/openid-connect/openid-connect)**\n- **[AWS Load Balancer Controller](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html)**\n- **[ACM Validation](https://docs.aws.amazon.com/acm/latest/userguide/dns-validation.html)**\n\n",
+      "filename" : "pinmaster_hld.md",
+      "format" : "Markdown",
+      "order" : 1,
+      "title" : ""
+    } ]
+  },
+  "id" : 1,
+  "lastModifiedDate" : "2024-09-25T17:40:12Z",
+  "model" : {
+    "customElements" : [ {
+      "id" : "3",
+      "name" : "Mobile App",
+      "properties" : {
+        "structurizr.dsl.identifier" : "mobileapp"
+      },
+      "relationships" : [ {
+        "description" : "Mobile SDK",
+        "destinationId" : "7",
+        "id" : "15",
+        "properties" : {
+          "structurizr.dsl.identifier" : "2207495f-6778-412d-81dc-ba3591a38edb"
+        },
+        "sourceId" : "3",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Mobile SDK",
+        "destinationId" : "4",
+        "id" : "16",
+        "linkedRelationshipId" : "15",
+        "sourceId" : "3"
+      } ],
+      "tags" : "Element,mobileApp"
+    }, {
+      "description" : "Arduino Platform",
+      "id" : "2",
+      "name" : "Device",
+      "properties" : {
+        "structurizr.dsl.identifier" : "device"
+      },
+      "tags" : "Element,device"
+    } ],
+    "deploymentNodes" : [ {
+      "children" : [ {
+        "environment" : "PinMaster Deployment",
+        "id" : "28",
+        "infrastructureNodes" : [ {
+          "environment" : "PinMaster Deployment",
+          "id" : "29",
+          "name" : "ALB Controller",
+          "properties" : {
+            "structurizr.dsl.identifier" : "albcontroller"
+          },
+          "relationships" : [ {
+            "destinationId" : "30",
+            "id" : "39",
+            "properties" : {
+              "structurizr.dsl.identifier" : "bab85589-127c-46b1-acf1-4c81853e024a"
+            },
+            "sourceId" : "29",
+            "tags" : "Relationship"
+          }, {
+            "destinationId" : "31",
+            "id" : "40",
+            "properties" : {
+              "structurizr.dsl.identifier" : "6de8adef-4a13-4db5-be74-3801ce38cb82"
+            },
+            "sourceId" : "29",
+            "tags" : "Relationship"
+          }, {
+            "destinationId" : "25",
+            "id" : "41",
+            "properties" : {
+              "structurizr.dsl.identifier" : "66b017d3-d87e-4d0a-83c0-e2fd4c7fac95"
+            },
+            "sourceId" : "29",
+            "tags" : "Relationship"
+          }, {
+            "destinationId" : "26",
+            "id" : "42",
+            "properties" : {
+              "structurizr.dsl.identifier" : "4bf5945d-6635-4268-9a3c-02323eda689d"
+            },
+            "sourceId" : "29",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Infrastructure Node,Kubernetes - ep",
+          "technology" : "Deployment"
+        }, {
+          "environment" : "PinMaster Deployment",
+          "id" : "30",
+          "name" : "Device Service",
+          "properties" : {
+            "structurizr.dsl.identifier" : "devicedeployment"
+          },
+          "relationships" : [ {
+            "destinationId" : "32",
+            "id" : "43",
+            "properties" : {
+              "structurizr.dsl.identifier" : "0fad11b3-530d-496a-9f2c-ed8c17bba324"
+            },
+            "sourceId" : "30",
+            "tags" : "Relationship"
+          }, {
+            "destinationId" : "23",
+            "id" : "44",
+            "properties" : {
+              "structurizr.dsl.identifier" : "e3ce9eae-9915-4c98-87fe-2b1739219f3d"
+            },
+            "sourceId" : "30",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Infrastructure Node,Kubernetes - pod",
+          "technology" : "Deployment"
+        }, {
+          "environment" : "PinMaster Deployment",
+          "id" : "31",
+          "name" : "Application Service",
+          "properties" : {
+            "structurizr.dsl.identifier" : "appdeployment"
+          },
+          "relationships" : [ {
+            "destinationId" : "32",
+            "id" : "45",
+            "properties" : {
+              "structurizr.dsl.identifier" : "38220654-85e1-4fe5-b3bb-6f23a0824ca9"
+            },
+            "sourceId" : "31",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Infrastructure Node,Kubernetes - pod",
+          "technology" : "Deployment"
+        }, {
+          "environment" : "PinMaster Deployment",
+          "id" : "32",
+          "name" : "MongoDb",
+          "properties" : {
+            "structurizr.dsl.identifier" : "mongodb"
+          },
+          "tags" : "Element,Infrastructure Node,Kubernetes - pod",
+          "technology" : "Stateful Set"
+        }, {
+          "environment" : "PinMaster Deployment",
+          "id" : "33",
+          "name" : "Prometheus",
+          "properties" : {
+            "structurizr.dsl.identifier" : "prometheus"
+          },
+          "tags" : "Element,Infrastructure Node,Kubernetes - pod",
+          "technology" : "Stateful Set"
+        }, {
+          "environment" : "PinMaster Deployment",
+          "id" : "34",
+          "name" : "Grafana",
+          "properties" : {
+            "structurizr.dsl.identifier" : "grafana"
+          },
+          "relationships" : [ {
+            "destinationId" : "33",
+            "id" : "47",
+            "properties" : {
+              "structurizr.dsl.identifier" : "f919c92a-8ab8-4333-8dab-d5efaee6caf3"
+            },
+            "sourceId" : "34",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Infrastructure Node,Kubernetes - pod",
+          "technology" : "Deployment"
+        } ],
+        "instances" : "1",
+        "name" : "Kubernetes Cluster",
+        "properties" : {
+          "structurizr.dsl.identifier" : "kubernetes"
+        },
+        "relationships" : [ {
+          "destinationId" : "27",
+          "id" : "46",
+          "properties" : {
+            "structurizr.dsl.identifier" : "4b3cad7a-afb9-4190-b600-31ccdb6661f5"
+          },
+          "sourceId" : "28",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Deployment Node,Amazon Web Services - EKS Cloud"
+      } ],
+      "environment" : "PinMaster Deployment",
+      "id" : "22",
+      "infrastructureNodes" : [ {
+        "environment" : "PinMaster Deployment",
+        "id" : "23",
+        "name" : "Certificates Bucket",
+        "properties" : {
+          "structurizr.dsl.identifier" : "certificatesbucket"
+        },
+        "tags" : "Element,Infrastructure Node,Amazon Web Services - Simple Storage Service Bucket"
+      }, {
+        "environment" : "PinMaster Deployment",
+        "id" : "24",
+        "name" : "ALB",
+        "properties" : {
+          "structurizr.dsl.identifier" : "alb"
+        },
+        "relationships" : [ {
+          "destinationId" : "36",
+          "id" : "37",
+          "properties" : {
+            "structurizr.dsl.identifier" : "027e053d-76c5-4d28-b4c3-b4fb85687c03"
+          },
+          "sourceId" : "24",
+          "tags" : "Relationship"
+        }, {
+          "destinationId" : "29",
+          "id" : "38",
+          "properties" : {
+            "structurizr.dsl.identifier" : "1355130a-a248-43b7-9e95-cefc1f4beade"
+          },
+          "sourceId" : "24",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Infrastructure Node,Amazon Web Services - Elastic Load Balancing Application Load Balancer"
+      }, {
+        "environment" : "PinMaster Deployment",
+        "id" : "25",
+        "name" : "Route53 Domain",
+        "properties" : {
+          "structurizr.dsl.identifier" : "route53"
+        },
+        "tags" : "Element,Infrastructure Node,Amazon Web Services - Elastic Load Balancing Application Load Balancer"
+      }, {
+        "environment" : "PinMaster Deployment",
+        "id" : "26",
+        "name" : "ACM Certificate",
+        "properties" : {
+          "structurizr.dsl.identifier" : "acm"
+        },
+        "tags" : "Element,Infrastructure Node,Amazon Web Services - Elastic Load Balancing Application Load Balancer"
+      }, {
+        "environment" : "PinMaster Deployment",
+        "id" : "27",
+        "name" : "CloudWatch",
+        "properties" : {
+          "structurizr.dsl.identifier" : "cloudwatch"
+        },
+        "tags" : "Element,Infrastructure Node,Amazon Web Services - CloudWatch"
+      } ],
+      "instances" : "1",
+      "name" : "AWS",
+      "properties" : {
+        "structurizr.dsl.identifier" : "54039722-25f8-4d1e-a04d-480a4b53f493"
+      },
+      "tags" : "Element,Deployment Node,Amazon Web Services - Organizations"
+    }, {
+      "environment" : "PinMaster Deployment",
+      "id" : "35",
+      "infrastructureNodes" : [ {
+        "environment" : "PinMaster Deployment",
+        "id" : "36",
+        "name" : "Google SSO",
+        "properties" : {
+          "structurizr.dsl.identifier" : "googlesso"
+        },
+        "tags" : "Element,Infrastructure Node,Google Cloud Platform - Cloud IAM"
+      } ],
+      "instances" : "1",
+      "name" : "Google",
+      "properties" : {
+        "structurizr.dsl.identifier" : "8330efbc-ca15-4230-b4a5-f153fe5481f1"
+      },
+      "tags" : "Element,Deployment Node,Google Cloud Platform - Compute Engine"
+    } ],
+    "people" : [ {
+      "id" : "1",
+      "location" : "Unspecified",
+      "name" : "User",
+      "properties" : {
+        "structurizr.dsl.identifier" : "user"
+      },
+      "relationships" : [ {
+        "description" : "Web UI",
+        "destinationId" : "5",
+        "id" : "10",
+        "properties" : {
+          "structurizr.dsl.identifier" : "4b309dd6-8d3a-4c55-995c-b5cadac314a0"
+        },
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Web UI",
+        "destinationId" : "4",
+        "id" : "11",
+        "linkedRelationshipId" : "10",
+        "sourceId" : "1"
+      }, {
+        "description" : "Web UI",
+        "destinationId" : "7",
+        "id" : "12",
+        "properties" : {
+          "structurizr.dsl.identifier" : "6522387c-7e43-451e-bce2-7fdbe28de7a2"
+        },
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "Uses",
+        "destinationId" : "3",
+        "id" : "13",
+        "properties" : {
+          "structurizr.dsl.identifier" : "13bf5847-b231-460c-bf64-ca15dbda6ceb"
+        },
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "destinationId" : "2",
+        "id" : "14",
+        "properties" : {
+          "structurizr.dsl.identifier" : "9e484095-8c30-442a-b3cc-f7bcd0ab75a3"
+        },
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "properties" : {
+      "structurizr.groupSeparator" : "/"
+    },
+    "softwareSystems" : [ {
+      "containers" : [ {
+        "documentation" : { },
+        "id" : "5",
+        "name" : "Application Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "appservice"
+        },
+        "relationships" : [ {
+          "destinationId" : "6",
+          "id" : "19",
+          "properties" : {
+            "structurizr.dsl.identifier" : "8e4ce6a8-673b-435d-a758-f008a1999094"
+          },
+          "sourceId" : "5",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container"
+      }, {
+        "documentation" : { },
+        "id" : "6",
+        "name" : "Application Storage",
+        "properties" : {
+          "structurizr.dsl.identifier" : "appstorage"
+        },
+        "tags" : "Element,Container,Database"
+      }, {
+        "documentation" : { },
+        "id" : "7",
+        "name" : "Device Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "deviceservice"
+        },
+        "relationships" : [ {
+          "description" : "Embedded SDK",
+          "destinationId" : "2",
+          "id" : "17",
+          "properties" : {
+            "structurizr.dsl.identifier" : "ebabafd8-0cc2-4b10-8c82-d92c9aca95d4"
+          },
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "destinationId" : "8",
+          "id" : "20",
+          "properties" : {
+            "structurizr.dsl.identifier" : "5790e074-3d23-479a-a830-ae8fc9bf695b"
+          },
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        }, {
+          "destinationId" : "9",
+          "id" : "21",
+          "properties" : {
+            "structurizr.dsl.identifier" : "2a523432-f6b6-404c-89f2-ce2b6bf7d000"
+          },
+          "sourceId" : "7",
+          "tags" : "Relationship"
+        } ],
+        "tags" : "Element,Container"
+      }, {
+        "documentation" : { },
+        "id" : "8",
+        "name" : "Device Storage",
+        "properties" : {
+          "structurizr.dsl.identifier" : "devicestorage"
+        },
+        "tags" : "Element,Container,Database"
+      }, {
+        "documentation" : { },
+        "id" : "9",
+        "name" : "Certificates Storage",
+        "properties" : {
+          "structurizr.dsl.identifier" : "certsstorage"
+        },
+        "tags" : "Element,Container,Database"
+      } ],
+      "documentation" : { },
+      "id" : "4",
+      "location" : "Unspecified",
+      "name" : "PinMaster",
+      "properties" : {
+        "structurizr.dsl.identifier" : "pinmaster"
+      },
+      "relationships" : [ {
+        "description" : "Embedded SDK",
+        "destinationId" : "2",
+        "id" : "18",
+        "linkedRelationshipId" : "17",
+        "sourceId" : "4"
+      } ],
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "PinMaster",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlICJQaW5NYXN0ZXIiIHsKCiAgICAhYWRycyBhZHIKICAgICFkb2NzIHRlY2hkZXNpZ24KICAgICMhaWRlbnRpZmllcnMgaGllcmFyY2hpY2FsCgogICAgbW9kZWwgewogICAgICAgIHByb3BlcnRpZXMgewogICAgICAgICAgICAic3RydWN0dXJpenIuZ3JvdXBTZXBhcmF0b3IiICIvIgogICAgICAgIH0KCiAgICAgICAgdXNlciA9IHBlcnNvbiAiVXNlciIKCiAgICAgICAgZGV2aWNlID0gZWxlbWVudCAiRGV2aWNlIiAiIiAiQXJkdWlubyBQbGF0Zm9ybSIgewogICAgICAgICAgICB0YWdzICJkZXZpY2UiCiAgICAgICAgfQogICAgICAgIG1vYmlsZUFwcCA9IGVsZW1lbnQgIk1vYmlsZSBBcHAiIHsKICAgICAgICAgICAgdGFncyAibW9iaWxlQXBwIgogICAgICAgIH0KICAgICAgICBwaW5tYXN0ZXIgPSBzb2Z0d2FyZVN5c3RlbSAiUGluTWFzdGVyIiB7CgogICAgICAgICAgICBhcHBTZXJ2aWNlID0gY29udGFpbmVyICJBcHBsaWNhdGlvbiBTZXJ2aWNlIgogICAgICAgICAgICBhcHBTdG9yYWdlID0gY29udGFpbmVyICJBcHBsaWNhdGlvbiBTdG9yYWdlIiB7CiAgICAgICAgICAgICAgICB0YWdzICJEYXRhYmFzZSIKICAgICAgICAgICAgfQogICAgICAgICAgICBkZXZpY2VTZXJ2aWNlID0gY29udGFpbmVyICJEZXZpY2UgU2VydmljZSIKICAgICAgICAgICAgZGV2aWNlU3RvcmFnZSA9IGNvbnRhaW5lciAiRGV2aWNlIFN0b3JhZ2UiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGNlcnRzU3RvcmFnZSA9IGNvbnRhaW5lciAiQ2VydGlmaWNhdGVzIFN0b3JhZ2UiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICB1c2VyIC0+IGFwcFNlcnZpY2UgIldlYiBVSSIKICAgICAgICB1c2VyIC0+IGRldmljZVNlcnZpY2UgIldlYiBVSSIKICAgICAgICB1c2VyIC0+IG1vYmlsZUFwcCAiVXNlcyIKICAgICAgICB1c2VyIC0+IGRldmljZQoKICAgICAgICBtb2JpbGVBcHAgLT4gZGV2aWNlU2VydmljZSAiTW9iaWxlIFNESyIKCiAgICAgICAgZGV2aWNlU2VydmljZSAtPiBkZXZpY2UgIkVtYmVkZGVkIFNESyIKICAgICAgICBhcHBTZXJ2aWNlIC0+IGFwcFN0b3JhZ2UKICAgICAgICBkZXZpY2VTZXJ2aWNlIC0+IGRldmljZVN0b3JhZ2UKICAgICAgICBkZXZpY2VTZXJ2aWNlIC0+IGNlcnRzU3RvcmFnZQoKICAgICAgICAjLS0tLS0tLS0gRGVwbG95bWVudCAtLS0tLS0tLS0tLS0KCiAgICAgICAgcGluTWFzdGVyRGVwbG95bWVudCA9IGRlcGxveW1lbnRFbnZpcm9ubWVudCAiUGluTWFzdGVyIERlcGxveW1lbnQiIHsKICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgIkFXUyIgewogICAgICAgICAgICAgICAgdGFncyAiQW1hem9uIFdlYiBTZXJ2aWNlcyAtIE9yZ2FuaXphdGlvbnMiCgogICAgICAgICAgICAgICAgY2VydGlmaWNhdGVzQnVja2V0ID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJDZXJ0aWZpY2F0ZXMgQnVja2V0IiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiQW1hem9uIFdlYiBTZXJ2aWNlcyAtIFNpbXBsZSBTdG9yYWdlIFNlcnZpY2UgQnVja2V0IgogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgIGFsYiA9IGluZnJhc3RydWN0dXJlTm9kZSAiQUxCIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiQW1hem9uIFdlYiBTZXJ2aWNlcyAtIEVsYXN0aWMgTG9hZCBCYWxhbmNpbmcgQXBwbGljYXRpb24gTG9hZCBCYWxhbmNlciIKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICByb3V0ZTUzID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJSb3V0ZTUzIERvbWFpbiIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgIkFtYXpvbiBXZWIgU2VydmljZXMgLSBFbGFzdGljIExvYWQgQmFsYW5jaW5nIEFwcGxpY2F0aW9uIExvYWQgQmFsYW5jZXIiCiAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgYWNtID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJBQ00gQ2VydGlmaWNhdGUiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZyBBcHBsaWNhdGlvbiBMb2FkIEJhbGFuY2VyIgogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgIGNsb3VkV2F0Y2ggPSBpbmZyYXN0cnVjdHVyZU5vZGUgIkNsb3VkV2F0Y2giIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWRXYXRjaCIKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBrdWJlcm5ldGVzID0gZGVwbG95bWVudE5vZGUgIkt1YmVybmV0ZXMgQ2x1c3RlciIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgIkFtYXpvbiBXZWIgU2VydmljZXMgLSBFS1MgQ2xvdWQiCgogICAgICAgICAgICAgICAgICAgIGFsYkNvbnRyb2xsZXIgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIkFMQiBDb250cm9sbGVyIiAiIiAiRGVwbG95bWVudCIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJLdWJlcm5ldGVzIC0gZXAiCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgIGRldmljZURlcGxveW1lbnQgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIkRldmljZSBTZXJ2aWNlIiAiIiAiRGVwbG95bWVudCIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJLdWJlcm5ldGVzIC0gcG9kIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICBhcHBEZXBsb3ltZW50ID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJBcHBsaWNhdGlvbiBTZXJ2aWNlIiAiIiAiRGVwbG95bWVudCIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJLdWJlcm5ldGVzIC0gcG9kIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICBtb25nb0RiID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJNb25nb0RiIiAiIiAiU3RhdGVmdWwgU2V0IiB7CiAgICAgICAgICAgICAgICAgICAgICAgIHRhZ3MgIkt1YmVybmV0ZXMgLSBwb2QiCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgIHByb21ldGhldXMgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIlByb21ldGhldXMiICIiICJTdGF0ZWZ1bCBTZXQiIHsKICAgICAgICAgICAgICAgICAgICAgICAgdGFncyAiS3ViZXJuZXRlcyAtIHBvZCIKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgZ3JhZmFuYSA9IGluZnJhc3RydWN0dXJlTm9kZSAiR3JhZmFuYSIgIiIgIkRlcGxveW1lbnQiIHsKICAgICAgICAgICAgICAgICAgICAgICAgdGFncyAiS3ViZXJuZXRlcyAtIHBvZCIKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGRlcGxveW1lbnROb2RlICJHb29nbGUiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkdvb2dsZSBDbG91ZCBQbGF0Zm9ybSAtIENvbXB1dGUgRW5naW5lIgoKICAgICAgICAgICAgICAgIGdvb2dsZVNTTyA9IGluZnJhc3RydWN0dXJlTm9kZSAiR29vZ2xlIFNTTyIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgIkdvb2dsZSBDbG91ZCBQbGF0Zm9ybSAtIENsb3VkIElBTSIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgIH0KCiAgICAgICAgYWxiIC0+IGdvb2dsZVNTTwogICAgICAgIGFsYiAtPiBhbGJDb250cm9sbGVyCiAgICAgICAgYWxiQ29udHJvbGxlciAtPiBkZXZpY2VEZXBsb3ltZW50CiAgICAgICAgYWxiQ29udHJvbGxlciAtPiBhcHBEZXBsb3ltZW50CiAgICAgICAgYWxiQ29udHJvbGxlciAtPiByb3V0ZTUzCiAgICAgICAgYWxiQ29udHJvbGxlciAtPiBhY20KICAgICAgICBkZXZpY2VEZXBsb3ltZW50IC0+IG1vbmdvRGIKICAgICAgICBkZXZpY2VEZXBsb3ltZW50IC0+IGNlcnRpZmljYXRlc0J1Y2tldAogICAgICAgIGFwcERlcGxveW1lbnQgLT4gbW9uZ29EYgogICAgICAgIGt1YmVybmV0ZXMgLT4gY2xvdWR3YXRjaAogICAgICAgIGdyYWZhbmEgLT4gcHJvbWV0aGV1cwogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBzeXN0ZW1Db250ZXh0IHBpbm1hc3RlciAiU2NvcGUiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgICNhdXRvbGF5b3V0IGxyCiAgICAgICAgICAgIGV4Y2x1ZGUgInVzZXIgLT4gZGV2aWNlIgogICAgICAgIH0KCiAgICAgICAgY29udGFpbmVyIHBpbm1hc3RlciAiQnVpbGRpbmdCbG9ja3NWaWV3IiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICAjYXV0b2xheW91dCBscgogICAgICAgICAgICBleGNsdWRlICJ1c2VyIC0+IGRldmljZSIKICAgICAgICB9CgogICAgICAgIGR5bmFtaWMgcGlubWFzdGVyICJDcmVhdGVBcHAiIHsKICAgICAgICAgICAgdGl0bGUgIkNyZWF0ZSBuZXcgQXBwbGljYXRpb24iCiAgICAgICAgICAgIHVzZXIgLT4gYXBwU2VydmljZSAiQ3JlYXRlIG5ldyBhcHBsaWNhdGlvbiByZXF1ZXN0IgogICAgICAgICAgICBhcHBTZXJ2aWNlIC0+IHVzZXIgIkNyZWRlbnRpYWxzIGZvciBuZXdseSBjcmVhdGVkIGFwcGxpY2F0aW9uIgogICAgICAgICAgICB1c2VyIC0+IG1vYmlsZUFwcCAiRW1iZWQgY3JlZGVudGlhbHMgaW50byBNb2JpbGUgQXBwIgogICAgICAgICAgICBtb2JpbGVBcHAgLT4gZGV2aWNlU2VydmljZSAiSW5pdCBNb2JpbGUgU0RLIHdpdGggY3JlZGVudGlhbHMuIFVzZSBNb2JpbGUgU0RLIHRvIG1hbmFnZSBhcHBsaWNhdGlvbiBkZXZpY2VzIgogICAgICAgICAgICAjYXV0b2xheW91dCBscgogICAgICAgIH0KCiAgICAgICAgZHluYW1pYyBwaW5tYXN0ZXIgIlJlZ2lzdGVyRGV2aWNlIiB7CiAgICAgICAgICAgIHRpdGxlICJSZWdpc3RlciBEZXZpY2UiCiAgICAgICAgICAgIHVzZXIgLT4gZGV2aWNlU2VydmljZSAiUmVnaXN0ZXIgZGV2aWNlIHJlcXVlc3QgZm9yIHNwZWNpZmllZCBhcHBsaWNhdGlvbiIKICAgICAgICAgICAgZGV2aWNlU2VydmljZSAtPiB1c2VyICJDZXJ0aWZpY2F0ZSBmb3IgbmV3bHkgcmVnaXN0ZXJlZCBkZXZpY2UiCiAgICAgICAgICAgIHVzZXIgLT4gZGV2aWNlICJVcGxvYWQgY2VydGlmaWNhdGUgdG8gZGV2aWNlIgogICAgICAgICAgICBkZXZpY2UgLT4gZGV2aWNlU2VydmljZSAiSW5pdCBFbWJlZGRlZCBTREsgd2l0aCBjZXJ0aWZpY2F0ZS4gVXNlIEVtYmVkZGVkIFNESyB0byBrZWVwIHN0YXRlIHVwIHRvIGRhdGUiCiAgICAgICAgICAgICNhdXRvbGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBkeW5hbWljIHBpbm1hc3RlciAiVXBkYXRlRGV2aWNlU3RhdGUiIHsKICAgICAgICAgICAgdGl0bGUgIlVwZGF0ZSBEZXZpY2UgU3RhdGUgd2l0aCBNb2JpbGUgQXBwIgogICAgICAgICAgICB1c2VyIC0+IG1vYmlsZUFwcCAiQ2hhbmdlIGRldmljZSBzdGF0ZSIKICAgICAgICAgICAgbW9iaWxlQXBwIC0+IGRldmljZVNlcnZpY2UgIlVwbG9hZCBjaGFuZ2VkIHN0YXRlIHZpYSBNb2JpbGUgU0RLIgogICAgICAgICAgICBkZXZpY2VTZXJ2aWNlIC0+IGRldmljZVN0b3JhZ2UgIlN0b3JlIHVwZGF0ZWQgc3RhdGUiCiAgICAgICAgICAgIGRldmljZVNlcnZpY2UgLT4gZGV2aWNlICJTZW5kIHVwZGF0ZSBzdGF0ZSB0byBkZXZpY2UuIERldmljZSB3aWxsIGdldCB1cGR0ZSBldmVudCBlbW1pdHRlZCBieSBFbWJlZGRlZCBTREsiCiAgICAgICAgICAgICNhdXRvbGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBkZXBsb3ltZW50IHBpbm1hc3RlciAiUGluTWFzdGVyRGVwbG95bWVudCIgIlBpbk1hc3RlckRlcGxveW1lbnQiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgICNhdXRvTGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJtb2JpbGVBcHAiIHsKICAgICAgICAgICAgICAgIHNoYXBlIE1vYmlsZURldmljZVBvcnRyYWl0CiAgICAgICAgICAgICAgICB3aWR0aCAzMDAKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJ3ZWJVSSIgewogICAgICAgICAgICAgICAgc2hhcGUgV2ViQnJvd3NlcgogICAgICAgICAgICAgICAgd2lkdGggMzAwCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiRGF0YWJhc2UiIHsKICAgICAgICAgICAgICAgIHNoYXBlIEN5bGluZGVyCiAgICAgICAgICAgICAgICB3aWR0aCAzMDAKICAgICAgICAgICAgfQogICAgICAgIH0KCiAgICAgICAgdGhlbWVzIGRlZmF1bHQgImh0dHBzOi8vc3RhdGljLnN0cnVjdHVyaXpyLmNvbS90aGVtZXMvbWljcm9zb2Z0LWF6dXJlLTIwMjEuMDEuMjYvdGhlbWUuanNvbiIKICAgICAgICB0aGVtZSBodHRwczovL3N0YXRpYy5zdHJ1Y3R1cml6ci5jb20vdGhlbWVzL2FtYXpvbi13ZWItc2VydmljZXMtMjAyMy4wMS4zMS90aGVtZS5qc29uCiAgICAgICAgdGhlbWUgaHR0cHM6Ly9zdGF0aWMuc3RydWN0dXJpenIuY29tL3RoZW1lcy9nb29nbGUtY2xvdWQtcGxhdGZvcm0tdjEuNS90aGVtZS5qc29uCiAgICAgICAgdGhlbWUgaHR0cHM6Ly9zdGF0aWMuc3RydWN0dXJpenIuY29tL3RoZW1lcy9rdWJlcm5ldGVzLXYwLjMvdGhlbWUuanNvbgogICAgfQoKICAgIGNvbmZpZ3VyYXRpb24gewogICAgICAgIHNjb3BlIHNvZnR3YXJlc3lzdGVtCiAgICB9Cgp9"
+  },
+  "views" : {
+    "configuration" : {
+      "branding" : { },
+      "lastSavedView" : "test",
+      "styles" : {
+        "elements" : [ {
+          "shape" : "MobileDevicePortrait",
+          "tag" : "mobileApp",
+          "width" : 300
+        }, {
+          "shape" : "WebBrowser",
+          "tag" : "webUI",
+          "width" : 300
+        }, {
+          "shape" : "Cylinder",
+          "tag" : "Database",
+          "width" : 300
+        } ]
+      },
+      "terminology" : { },
+      "themes" : [ "https://static.structurizr.com/themes/default/theme.json", "https://static.structurizr.com/themes/microsoft-azure-2021.01.26/theme.json", "https://static.structurizr.com/themes/amazon-web-services-2023.01.31/theme.json", "https://static.structurizr.com/themes/google-cloud-platform-v1.5/theme.json", "https://static.structurizr.com/themes/kubernetes-v0.3/theme.json" ]
+    },
+    "containerViews" : [ {
+      "dimensions" : {
+        "height" : 1874,
+        "width" : 2950
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 635,
+        "y" : 175
+      }, {
+        "id" : "2",
+        "x" : 1525,
+        "y" : 1485
+      }, {
+        "id" : "3",
+        "x" : 675,
+        "y" : 645
+      }, {
+        "id" : "5",
+        "x" : 1505,
+        "y" : 225
+      }, {
+        "id" : "6",
+        "x" : 2130,
+        "y" : 225
+      }, {
+        "id" : "7",
+        "x" : 1500,
+        "y" : 650
+      }, {
+        "id" : "8",
+        "x" : 2140,
+        "y" : 655
+      }, {
+        "id" : "9",
+        "x" : 2145,
+        "y" : 1050
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "BuildingBlocksView",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "10"
+      }, {
+        "id" : "12"
+      }, {
+        "id" : "13"
+      }, {
+        "id" : "15"
+      }, {
+        "id" : "17"
+      }, {
+        "id" : "19"
+      }, {
+        "id" : "20"
+      }, {
+        "id" : "21"
+      } ],
+      "softwareSystemId" : "4"
+    } ],
+    "deploymentViews" : [ {
+      "dimensions" : {
+        "height" : 2007,
+        "width" : 3999
+      },
+      "elements" : [ {
+        "id" : "22",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 3379,
+        "y" : 1415
+      }, {
+        "id" : "24",
+        "x" : 749,
+        "y" : 809
+      }, {
+        "id" : "25",
+        "x" : 1270,
+        "y" : 170
+      }, {
+        "id" : "26",
+        "x" : 1964,
+        "y" : 175
+      }, {
+        "id" : "27",
+        "x" : 3379,
+        "y" : 1010
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "29",
+        "x" : 1474,
+        "y" : 809
+      }, {
+        "id" : "30",
+        "x" : 2129,
+        "y" : 975
+      }, {
+        "id" : "31",
+        "x" : 2132,
+        "y" : 545
+      }, {
+        "id" : "32",
+        "x" : 2762,
+        "y" : 805
+      }, {
+        "id" : "33",
+        "x" : 1804,
+        "y" : 1375
+      }, {
+        "id" : "34",
+        "x" : 2409,
+        "y" : 1370
+      }, {
+        "id" : "35",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "36",
+        "x" : 170,
+        "y" : 170
+      } ],
+      "environment" : "PinMaster Deployment",
+      "key" : "PinMasterDeployment",
+      "order" : 6,
+      "relationships" : [ {
+        "id" : "37"
+      }, {
+        "id" : "38"
+      }, {
+        "id" : "39"
+      }, {
+        "id" : "40"
+      }, {
+        "id" : "41"
+      }, {
+        "id" : "42"
+      }, {
+        "id" : "43"
+      }, {
+        "id" : "44"
+      }, {
+        "id" : "45"
+      }, {
+        "id" : "46"
+      }, {
+        "id" : "47"
+      } ],
+      "softwareSystemId" : "4"
+    } ],
+    "dynamicViews" : [ {
+      "dimensions" : {
+        "height" : 1130,
+        "width" : 2020
+      },
+      "elementId" : "4",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 347,
+        "y" : 29
+      }, {
+        "id" : "3",
+        "x" : 417,
+        "y" : 714
+      }, {
+        "id" : "5",
+        "x" : 1192,
+        "y" : 149
+      }, {
+        "id" : "7",
+        "x" : 1202,
+        "y" : 709
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "CreateApp",
+      "order" : 3,
+      "relationships" : [ {
+        "description" : "Create new application request",
+        "id" : "10",
+        "order" : "1",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 957,
+          "y" : 139
+        } ]
+      }, {
+        "description" : "Credentials for newly created application",
+        "id" : "10",
+        "order" : "2",
+        "response" : true,
+        "vertices" : [ {
+          "x" : 972,
+          "y" : 429
+        } ]
+      }, {
+        "description" : "Embed credentials into Mobile App",
+        "id" : "13",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "Init Mobile SDK with credentials. Use Mobile SDK to manage application devices",
+        "id" : "15",
+        "order" : "4",
+        "response" : false
+      } ],
+      "title" : "Create new Application"
+    }, {
+      "dimensions" : {
+        "height" : 1130,
+        "width" : 2020
+      },
+      "elementId" : "4",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 55,
+        "y" : 335
+      }, {
+        "id" : "2",
+        "x" : 1270,
+        "y" : 780
+      }, {
+        "id" : "7",
+        "x" : 1270,
+        "y" : 40
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "RegisterDevice",
+      "order" : 4,
+      "relationships" : [ {
+        "description" : "Register device request for specified application",
+        "id" : "12",
+        "order" : "1",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 785,
+          "y" : 190
+        } ]
+      }, {
+        "description" : "Certificate for newly registered device",
+        "id" : "12",
+        "order" : "2",
+        "response" : true,
+        "vertices" : [ {
+          "x" : 970,
+          "y" : 540
+        } ]
+      }, {
+        "description" : "Upload certificate to device",
+        "id" : "14",
+        "order" : "3",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 860,
+          "y" : 930
+        } ]
+      }, {
+        "description" : "Init Embedded SDK with certificate. Use Embedded SDK to keep state up to date",
+        "id" : "17",
+        "order" : "4",
+        "response" : true
+      } ],
+      "title" : "Register Device"
+    }, {
+      "dimensions" : {
+        "height" : 1130,
+        "width" : 2020
+      },
+      "elementId" : "4",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 15,
+        "y" : 30
+      }, {
+        "id" : "2",
+        "x" : 665,
+        "y" : 625
+      }, {
+        "id" : "3",
+        "x" : 750,
+        "y" : 75
+      }, {
+        "id" : "7",
+        "x" : 1510,
+        "y" : 80
+      }, {
+        "id" : "8",
+        "x" : 1595,
+        "y" : 600
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "UpdateDeviceState",
+      "order" : 5,
+      "relationships" : [ {
+        "description" : "Change device state",
+        "id" : "13",
+        "order" : "1",
+        "response" : false
+      }, {
+        "description" : "Upload changed state via Mobile SDK",
+        "id" : "15",
+        "order" : "2",
+        "response" : false
+      }, {
+        "description" : "Store updated state",
+        "id" : "20",
+        "order" : "3",
+        "response" : false
+      }, {
+        "description" : "Send update state to device. Device will get updte event emmitted by Embedded SDK",
+        "id" : "17",
+        "order" : "4",
+        "response" : false
+      } ],
+      "title" : "Update Device State with Mobile App"
+    } ],
+    "systemContextViews" : [ {
+      "dimensions" : {
+        "height" : 1100,
+        "width" : 2650
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 339,
+        "y" : 60
+      }, {
+        "id" : "2",
+        "x" : 1859,
+        "y" : 410
+      }, {
+        "id" : "3",
+        "x" : 390,
+        "y" : 645
+      }, {
+        "id" : "4",
+        "x" : 1089,
+        "y" : 405
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "Scope",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "11"
+      }, {
+        "id" : "13"
+      }, {
+        "id" : "16"
+      }, {
+        "id" : "18"
+      } ],
+      "softwareSystemId" : "4"
+    } ]
+  }
+}

@@ -4,6 +4,11 @@ workspace "PinMaster" {
     !docs techdesign
     #!identifiers hierarchical
 
+
+    configuration {
+        scope softwaresystem
+    }
+
     model {
         properties {
             "structurizr.groupSeparator" "/"

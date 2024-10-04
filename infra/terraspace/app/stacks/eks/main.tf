@@ -14,7 +14,7 @@ module "eks_al2023" {
 
   # EKS Addons
   cluster_addons = {
-    #coredns                = {}
+    coredns                = {}
     eks-pod-identity-agent = {}
     kube-proxy             = {}
     vpc-cni                = {}
@@ -32,7 +32,7 @@ module "eks_al2023" {
 
       min_size = 3
       max_size = 3
-      desired_size = 1
+      desired_size = 3
     }
   }
 
@@ -61,6 +61,8 @@ resource "null_resource" "iam_service_account" {
 
   provisioner "local-exec" {
     command = <<EOF
+
+    aws eks update-kubeconfig --name $CLUSTER_NAME
 
     eksctl create iamserviceaccount \
       --cluster=$CLUSTER_NAME \

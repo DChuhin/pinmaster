@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: structurizr
+  name: {{ .Chart.Name }}
   labels:
-    app: structurizr
+    app: {{ .Chart.Name }}
 spec:
   type: ClusterIP
   ports:
@@ -11,4 +11,4 @@ spec:
       targetPort: 8080
       protocol: TCP
   selector:
-    app: structurizr
+    app: {{ .Chart.Name }}

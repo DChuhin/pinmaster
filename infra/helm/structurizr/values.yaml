@@ -5,10 +5,5 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
-ingress:
-  annotations:
-    kubernetes.io/ingress.class: "alb"
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
-    alb.ingress.kubernetes.io/backend-protocol: HTTP
+serviceAccount:
+  roleArn: arn:aws:iam::216871981680:role/structurizr

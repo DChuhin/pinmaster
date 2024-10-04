@@ -3,3 +3,4 @@
 
 mod "vpc", source: "terraform-aws-modules/terraform-aws-vpc"
 mod "eks", source: "terraform-aws-modules/terraform-aws-eks"
+mod "eks", source: "terraform-aws-modules/terraform-aws-s3"

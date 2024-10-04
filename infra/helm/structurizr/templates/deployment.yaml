@@ -1,22 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: structurizr
+  name: {{ .Chart.Name }}
   labels:
-    app: structurizr
+    app: {{ .Chart.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: structurizr
+      app: {{ .Chart.Name }}
   template:
     metadata:
       labels:
-        app: structurizr
+        app: {{ .Chart.Name }}
     spec:
+      serviceAccountName: {{ .Chart.Name }}
       containers:
-        - name: structurizr
+        - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
+          volumeMounts:
+            - name: config-volume
+              mountPath: /usr/local/structurizr/structurizr.properties
+              subPath: structurizr.properties
+      volumes:
+        - name: config-volume
+          configMap:
+            name: {{ .Chart.Name }}
